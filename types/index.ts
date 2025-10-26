@@ -24,7 +24,7 @@ export interface Project {
   customerName: string;
   startDate?: Date | string;
   structures?: Array<{
-    type: 'SSMH' | 'SDMH' | 'Inlets' | 'Vaults' | 'Meter Pits' | 'Air Vacuum Pits';
+    type: string;
     customName?: string;
   }>;
   productType: 'storm' | 'sanitary' | 'electrical' | 'meter';

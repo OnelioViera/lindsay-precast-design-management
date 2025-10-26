@@ -100,16 +100,16 @@ export function EditCustomerModal({ isOpen, customer, onClose, onSuccess }: Edit
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-white border border-gray-400 shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b sticky top-0 bg-white">
+        <div className="flex items-center justify-between p-6 border-b border-gray-400 sticky top-0 bg-white">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">Edit Customer</h2>
-            <p className="text-sm text-gray-600 mt-1">Update customer information</p>
+            <h2 className="text-2xl font-bold text-gray-900">Edit Customer</h2>
+            <p className="text-sm text-gray-700 mt-1">Update customer information</p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition p-1"
+            className="text-gray-600 hover:text-gray-800 transition p-1"
           >
             <X className="h-6 w-6" />
           </button>
@@ -216,7 +216,7 @@ export function EditCustomerModal({ isOpen, customer, onClose, onSuccess }: Edit
 
                 {/* Error Message */}
                 {error && (
-                  <div className="bg-red-50 text-red-600 border border-red-200 p-3 rounded-lg text-sm">
+                  <div className="bg-red-100 text-red-800 border border-red-400 p-3 text-sm">
                     {error}
                   </div>
                 )}
@@ -234,7 +234,8 @@ export function EditCustomerModal({ isOpen, customer, onClose, onSuccess }: Edit
                   </Button>
                   <Button
                     type="submit"
-                    className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg transition-all duration-200 font-semibold"
+                    variant="primary"
+                    className="flex-1"
                     disabled={loading}
                   >
                     {loading ? 'Updating...' : 'Update Customer'}

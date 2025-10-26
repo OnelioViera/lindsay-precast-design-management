@@ -49,10 +49,10 @@ export default function RegisterPage() {
     <div className="gradient-bg flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <CardTitle className="text-3xl font-bold text-gray-900">
             📋 Create Account
           </CardTitle>
-          <CardDescription className="text-base">
+          <CardDescription className="text-base text-gray-700">
             Join the Lindsay Precast Team
           </CardDescription>
         </CardHeader>
@@ -108,7 +108,7 @@ export default function RegisterPage() {
               </Select>
             </div>
             {error && (
-              <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+              <div className="bg-red-100 text-red-800 p-3 text-sm border border-red-400">
                 {error}
               </div>
             )}
@@ -121,9 +121,9 @@ export default function RegisterPage() {
               {loading ? 'Creating account...' : 'Create Account'}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm text-gray-600">
+          <div className="mt-4 text-center text-sm text-gray-700">
             Already have an account?{' '}
-            <a href="/login" className="text-indigo-600 hover:underline font-semibold">
+            <a href="/login" className="text-gray-900 hover:underline font-semibold border-b border-gray-900">
               Login here
             </a>
           </div>

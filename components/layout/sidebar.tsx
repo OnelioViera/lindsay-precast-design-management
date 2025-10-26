@@ -29,19 +29,19 @@ export function Sidebar() {
 
   return (
     <div className={cn(
-      'bg-white shadow-lg h-screen fixed left-0 top-0 flex flex-col transition-all duration-300 z-40',
+      'bg-gray-200 shadow-lg h-screen fixed left-0 top-0 flex flex-col transition-all duration-300 z-40 border-r border-gray-400',
       isCollapsed ? 'w-20' : 'w-64'
     )}>
       <div className={cn(
-        'border-b',
+        'border-b border-gray-400',
         isCollapsed ? 'p-3' : 'p-6'
       )}>
         {!isCollapsed && (
           <div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold text-gray-900">
               Lindsay Precast
             </h2>
-            <p className="text-sm text-gray-600 mt-1">Design Management</p>
+            <p className="text-sm text-gray-700 mt-1">Design Management</p>
           </div>
         )}
       </div>
@@ -49,7 +49,7 @@ export function Sidebar() {
       {/* Collapse button on the right edge */}
       <button
         onClick={toggleCollapse}
-        className="absolute top-1/2 -right-3 transform -tranpurple-y-1/2 bg-white border border-gray-200 rounded-full p-2 text-gray-400 hover:text-indigo-600 hover:border-indigo-600 transition-colors shadow-lg z-50"
+        className="absolute top-1/2 -right-3 transform -translate-y-1/2 bg-gray-200 border-2 border-gray-400 p-2 text-gray-600 hover:text-gray-900 hover:border-gray-600 transition-colors shadow-lg z-50"
         title={isCollapsed ? 'Expand' : 'Collapse'}
       >
         <ChevronLeft className={cn(
@@ -71,10 +71,10 @@ export function Sidebar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 relative group',
+                    'flex items-center gap-3 px-4 py-3 transition-all duration-200 relative group border',
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                      : 'text-gray-700 hover:bg-gray-100',
+                      ? 'bg-gray-700 text-white border-gray-900 shadow-md'
+                      : 'text-gray-700 hover:bg-gray-300 border-gray-400',
                     isCollapsed && 'justify-center px-3'
                   )}
                 >
@@ -83,7 +83,7 @@ export function Sidebar() {
                   
                   {/* Tooltip for collapsed sidebar */}
                   {isCollapsed && (
-                    <div className="absolute left-full ml-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 font-medium">
+                    <div className="absolute left-full ml-2 px-3 py-2 bg-gray-900 text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 font-medium border border-gray-800">
                       {item.label}
                     </div>
                   )}
@@ -94,11 +94,11 @@ export function Sidebar() {
         </ul>
       </nav>
 
-      <div className="p-4 border-t">
+      <div className="p-4 border-t border-gray-400">
         <button
           onClick={() => signOut({ callbackUrl: '/' })}
           className={cn(
-            'flex items-center gap-3 px-4 py-3 rounded-lg w-full text-gray-700 hover:bg-red-50 hover:text-red-600 transition-all duration-200 relative group',
+            'flex items-center gap-3 px-4 py-3 w-full text-gray-700 hover:bg-red-200 hover:text-red-800 transition-all duration-200 relative group border border-gray-400 hover:border-red-400',
             isCollapsed && 'justify-center px-3'
           )}
         >
@@ -107,7 +107,7 @@ export function Sidebar() {
           
           {/* Tooltip for collapsed sidebar */}
           {isCollapsed && (
-            <div className="absolute left-full ml-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 font-medium">
+            <div className="absolute left-full ml-2 px-3 py-2 bg-gray-900 text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 font-medium border border-gray-800">
               Logout
             </div>
           )}

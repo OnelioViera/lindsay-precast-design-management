@@ -161,8 +161,8 @@ export function TimeTracker({ projectId, initialSeconds = 0, onTimeStart, onTime
   };
 
   return (
-    <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-lg">
-      <div className="timer-display text-indigo-600 min-w-[100px]">
+    <div className="flex items-center gap-3 bg-gray-200 p-4 border border-gray-400">
+      <div className="timer-display text-gray-900 min-w-[100px]">
         {formatTime(seconds)}
       </div>
       <div className="flex gap-2">

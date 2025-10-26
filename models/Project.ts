@@ -40,7 +40,6 @@ const RFISchema = new Schema({
 const StructureSchema = new Schema({
   type: {
     type: String,
-    enum: ['SSMH', 'SDMH', 'Inlets', 'Vaults', 'Meter Pits', 'Air Vacuum Pits'],
     required: true,
   },
   customName: {

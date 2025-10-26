@@ -32,26 +32,26 @@ export function ConfirmationDialog({
   const getStyles = () => {
     switch (type) {
       case 'danger':
-        return 'border-red-200 bg-red-50';
+        return 'border-red-400 bg-red-100';
       case 'warning':
-        return 'border-orange-200 bg-orange-50';
+        return 'border-gray-400 bg-gray-200';
       case 'info':
-        return 'border-blue-200 bg-blue-50';
+        return 'border-gray-400 bg-gray-100';
       default:
-        return 'border-gray-200 bg-gray-50';
+        return 'border-gray-400 bg-gray-100';
     }
   };
 
   const getButtonStyle = () => {
     switch (type) {
       case 'danger':
-        return 'bg-red-600 hover:bg-red-700 text-white';
+        return 'bg-red-600 hover:bg-red-700 text-white border border-red-900';
       case 'warning':
-        return 'bg-orange-600 hover:bg-orange-700 text-white';
+        return 'bg-gray-700 hover:bg-gray-800 text-white border border-gray-900';
       case 'info':
-        return 'bg-blue-600 hover:bg-blue-700 text-white';
+        return 'bg-gray-700 hover:bg-gray-800 text-white border border-gray-900';
       default:
-        return 'bg-gray-600 hover:bg-gray-700 text-white';
+        return 'bg-gray-700 hover:bg-gray-800 text-white border border-gray-900';
     }
   };
 
@@ -60,9 +60,9 @@ export function ConfirmationDialog({
       <Card className={`w-full max-w-md border-2 ${getStyles()}`}>
         <div className="p-6 space-y-4">
           <div className="flex items-start gap-3">
-            <AlertCircle className="h-6 w-6 text-orange-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="h-6 w-6 text-gray-800 flex-shrink-0 mt-0.5" />
             <div>
-              <h2 className="text-xl font-bold text-gray-800">{title}</h2>
+              <h2 className="text-xl font-bold text-gray-900">{title}</h2>
               <p className="text-sm text-gray-700 mt-2">{message}</p>
             </div>
           </div>
@@ -79,7 +79,7 @@ export function ConfirmationDialog({
             <button
               onClick={onConfirm}
               disabled={isLoading}
-              className={`px-6 py-2 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${getButtonStyle()}`}
+              className={`px-6 py-2 font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border ${getButtonStyle()}`}
             >
               {isLoading ? (
                 <span className="flex items-center gap-2">

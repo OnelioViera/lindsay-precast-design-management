@@ -62,32 +62,32 @@ export default function DashboardPage() {
       title: 'Total Projects',
       value: stats.totalProjects,
       icon: FolderKanban,
-      color: 'from-blue-500 to-blue-600',
+      bgColor: 'bg-gray-300',
     },
     {
       title: 'Active Projects',
       value: stats.activeProjects,
       icon: Clock,
-      color: 'from-orange-500 to-orange-600',
+      bgColor: 'bg-gray-400',
     },
     {
       title: 'Total Customers',
       value: stats.totalCustomers,
       icon: Users,
-      color: 'from-green-500 to-green-600',
+      bgColor: 'bg-gray-500',
     },
     {
       title: 'Completed This Month',
       value: stats.completedThisMonth,
       icon: CheckCircle,
-      color: 'from-purple-500 to-purple-600',
+      bgColor: 'bg-gray-600',
     },
   ];
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-gray-600">Loading dashboard...</div>
+        <div className="text-gray-700">Loading dashboard...</div>
       </div>
     );
   }
@@ -95,8 +95,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
-        <p className="text-gray-600 mt-1">Overview of your design management system</p>
+        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <p className="text-gray-700 mt-1">Overview of your design management system</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -105,16 +105,16 @@ export default function DashboardPage() {
           return (
             <Card key={stat.title} className="overflow-hidden">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-700">
                   {stat.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-between">
-                  <div className="text-3xl font-bold text-gray-800">
+                  <div className="text-3xl font-bold text-gray-900">
                     {stat.value}
                   </div>
-                  <div className={`p-3 rounded-lg bg-gradient-to-br ${stat.color}`}>
+                  <div className={`p-3 border border-gray-700 ${stat.bgColor}`}>
                     <Icon className="h-6 w-6 text-white" />
                   </div>
                 </div>
@@ -132,31 +132,31 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <a
               href="/dashboard/projects/new"
-              className="p-6 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="p-6 bg-gray-700 text-white hover:bg-gray-800 transition-all duration-300 border border-gray-900"
             >
               <h3 className="text-lg font-semibold mb-2">New Project</h3>
-              <p className="text-sm text-indigo-100">Create a new design project</p>
+              <p className="text-sm text-gray-300">Create a new design project</p>
             </a>
             <a
               href="/dashboard/projects"
-              className="p-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl text-white hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="p-6 bg-gray-600 text-white hover:bg-gray-700 transition-all duration-300 border border-gray-800"
             >
               <h3 className="text-lg font-semibold mb-2">Manage Projects</h3>
-              <p className="text-sm text-blue-100">View all active projects</p>
+              <p className="text-sm text-gray-300">View all active projects</p>
             </a>
             <a
               href="/dashboard/customers"
-              className="p-6 bg-gradient-to-r from-green-500 to-green-600 rounded-xl text-white hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="p-6 bg-gray-500 text-white hover:bg-gray-600 transition-all duration-300 border border-gray-700"
             >
               <h3 className="text-lg font-semibold mb-2">Manage Customers</h3>
-              <p className="text-sm text-green-100">View and edit customer information</p>
+              <p className="text-sm text-gray-300">View and edit customer information</p>
             </a>
             <a
               href="/dashboard/library"
-              className="p-6 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl text-white hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="p-6 bg-gray-400 text-gray-900 hover:bg-gray-500 transition-all duration-300 border border-gray-600"
             >
               <h3 className="text-lg font-semibold mb-2">Product Library</h3>
-              <p className="text-sm text-orange-100">Browse design templates</p>
+              <p className="text-sm text-gray-700">Browse design templates</p>
             </a>
           </div>
         </CardContent>

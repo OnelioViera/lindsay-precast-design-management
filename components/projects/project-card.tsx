@@ -39,17 +39,17 @@ export function ProjectCard({ project, onEdit, onDelete, onDownloadPDF, onClick 
 
   return (
     <Card 
-      className="bg-gray-50 border-l-4 border-indigo-500 hover:translate-x-1 cursor-pointer"
+      className="bg-white border-l-4 border-gray-600 hover:translate-x-1 cursor-pointer"
       onClick={() => onClick?.(project._id!)}
     >
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
               {project.customerName} - Job #{project.projectNumber}
             </h3>
             {project.projectName && (
-              <p className="text-sm font-semibold text-indigo-600 mb-2">{project.projectName}</p>
+              <p className="text-sm font-semibold text-gray-700 mb-2">{project.projectName}</p>
             )}
             <div className="text-sm text-gray-600 space-y-1">
               <p>Date: {formatDate(project.createdAt!)}</p>
@@ -104,8 +104,8 @@ export function ProjectCard({ project, onEdit, onDelete, onDownloadPDF, onClick 
         </div>
 
         {project.specifications.customNotes && (
-          <div className="mt-3 p-3 bg-white rounded-lg">
-            <p className="text-sm text-gray-700">
+          <div className="mt-3 p-3 bg-gray-100 border border-gray-300">
+            <p className="text-sm text-gray-800">
               <span className="font-semibold">Notes:</span> {project.specifications.customNotes}
             </p>
           </div>

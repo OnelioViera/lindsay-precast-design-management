@@ -242,7 +242,7 @@ export default function ProjectsPage() {
             <Card key={project._id} className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 cursor-pointer" onClick={() => router.push(`/dashboard/projects/${project._id}`)}>
+                  <div className="flex-1">
                     <div className="flex items-center gap-3">
                       <h3 className="text-lg font-semibold text-gray-800">{project.projectNumber}</h3>
                       {project.projectName && (
@@ -272,16 +272,14 @@ export default function ProjectsPage() {
                     
                     {/* Status and Production Handoff */}
                     <div className="flex items-center gap-4 mt-3">
-                      <button 
-                        onClick={() => router.push(`/dashboard/projects/${project._id}`)}
-                        className={`text-xs px-3 py-1 rounded-full font-semibold cursor-pointer hover:opacity-80 transition-opacity ${
+                      <span className={`text-xs px-3 py-1 rounded-full font-semibold ${
                           project.status === 'approved' ? 'bg-green-100 text-green-800' :
                           project.status === 'review' ? 'bg-yellow-100 text-yellow-800' :
                           project.status === 'inprogress' ? 'bg-blue-100 text-blue-800' :
                           'bg-gray-100 text-gray-800'
                         }`}>
                         {project.status.charAt(0).toUpperCase() + project.status.slice(1).replace('inprogress', 'In Progress')}
-                      </button>
+                      </span>
                       
                       {/* Production Handoff Status */}
                       {project.productionHandoff?.sentToProduction ? (
@@ -296,36 +294,60 @@ export default function ProjectsPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button
-                      variant="default"
-                      className="p-2"
-                      onClick={() => handleDownloadPDF(project)}
-                      title="Download PDF"
-                    >
-                      <Download className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="default"
-                      className="p-2"
-                      onClick={() => {
-                        const projectToEdit = projects.find(p => p._id === project._id);
-                        if (projectToEdit) {
-                          setSelectedProject(projectToEdit);
-                          setShowEditModal(true);
-                        }
-                      }}
-                      title="Edit"
-                    >
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      className="p-2"
-                      onClick={() => handleDeleteClick(project._id!)}
-                      title="Delete"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <div className="group relative">
+                      <Button
+                        variant="default"
+                        className="p-3"
+                        onClick={() => router.push(`/dashboard/projects/${project._id}`)}
+                      >
+                        <Eye className="h-5 w-5" />
+                      </Button>
+                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                        View Project
+                      </div>
+                    </div>
+                    <div className="group relative">
+                      <Button
+                        variant="default"
+                        className="p-3"
+                        onClick={() => {
+                          const projectToEdit = projects.find(p => p._id === project._id);
+                          if (projectToEdit) {
+                            setSelectedProject(projectToEdit);
+                            setShowEditModal(true);
+                          }
+                        }}
+                      >
+                        <Edit className="h-5 w-5" />
+                      </Button>
+                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                        Edit Project
+                      </div>
+                    </div>
+                    <div className="group relative">
+                      <Button
+                        variant="default"
+                        className="p-3"
+                        onClick={() => handleDownloadPDF(project)}
+                      >
+                        <Download className="h-5 w-5" />
+                      </Button>
+                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                        Download PDF
+                      </div>
+                    </div>
+                    <div className="group relative">
+                      <Button
+                        variant="destructive"
+                        className="p-3"
+                        onClick={() => handleDeleteClick(project._id!)}
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </Button>
+                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                        Delete Project
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -341,7 +363,16 @@ export default function ProjectsPage() {
           setShowEditModal(false);
           setSelectedProject(null);
         }}
-        onSuccess={fetchProjects}
+        onSuccess={() => {
+          setShowEditModal(false);
+          setSelectedProject(null);
+          fetchProjects();
+          addToast({
+            title: 'Project Updated',
+            message: 'Project has been successfully updated',
+            type: 'success',
+          });
+        }}
       />
 
       <ConfirmationDialog

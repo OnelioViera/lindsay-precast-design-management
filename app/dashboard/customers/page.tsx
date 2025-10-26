@@ -53,11 +53,11 @@ export default function CustomersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Customers</h1>
-          <p className="text-gray-600 mt-1">Manage your customer relationships</p>
+          <h1 className="text-3xl font-bold text-gray-900">Customers</h1>
+          <p className="text-gray-700 mt-1">Manage your customer relationships</p>
         </div>
         <Button 
-          className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+          variant="primary"
           onClick={() => setShowNewCustomerModal(true)}
         >
           <Plus className="h-5 w-5 mr-2" />
@@ -71,7 +71,7 @@ export default function CustomersPage() {
         </CardHeader>
         <CardContent>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -tranpurple-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
               placeholder="Search customers..."
               value={searchTerm}
@@ -89,36 +89,37 @@ export default function CustomersPage() {
               <CardTitle className="text-xl">{customer.name}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center gap-2 text-sm text-gray-700">
                 <Mail className="h-4 w-4" />
                 <span>{customer.contactInfo.email}</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center gap-2 text-sm text-gray-700">
                 <Phone className="h-4 w-4" />
                 <span>{customer.contactInfo.phone}</span>
               </div>
               <div className="pt-3 border-t">
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
-                    <p className="text-gray-600 font-semibold">Total Projects</p>
-                    <p className="text-2xl font-bold text-indigo-600">
+                    <p className="text-gray-700 font-semibold">Total Projects</p>
+                    <p className="text-2xl font-bold text-gray-900">
                       {customer.projectHistory.totalProjects}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-600 font-semibold">Active</p>
-                    <p className="text-2xl font-bold text-orange-600">
+                    <p className="text-gray-700 font-semibold">Active</p>
+                    <p className="text-2xl font-bold text-gray-800">
                       {customer.projectHistory.activeProjects}
                     </p>
                   </div>
                 </div>
               </div>
               <Button
+                variant="primary"
                 onClick={() => {
                   setSelectedCustomer(customer);
                   setShowEditCustomerModal(true);
                 }}
-                className="w-full mt-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg transition-all"
+                className="w-full mt-4"
               >
                 <Edit className="h-4 w-4 mr-2" />
                 Edit Customer

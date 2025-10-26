@@ -29,7 +29,7 @@ export const projectSchema = z.object({
     customNotes: z.string().optional(),
   }),
   structures: z.array(z.object({
-    type: z.enum(['SSMH', 'SDMH', 'Inlets', 'Vaults', 'Meter Pits', 'Air Vacuum Pits']),
+    type: z.string().min(1, 'Structure type is required'),
     customName: z.string().optional(),
   })).optional(),
 });

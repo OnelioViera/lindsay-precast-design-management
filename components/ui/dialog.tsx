@@ -35,15 +35,15 @@ const DialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed left-[50%] top-[50%] z-50 w-full max-w-lg translate-x-[-50%] translate-y-[-50%]",
-        "rounded-2xl bg-white p-6 shadow-2xl",
+        "bg-white p-6 shadow-xl border border-gray-400",
         "data-[state=open]:animate-in data-[state=closed]:animate-out",
         className
       )}
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-lg p-1 hover:bg-gray-100 transition-colors">
-        <X className="h-5 w-5 text-gray-500" />
+      <DialogPrimitive.Close className="absolute right-4 top-4 p-1 hover:bg-gray-200 transition-colors">
+        <X className="h-5 w-5 text-gray-600" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>

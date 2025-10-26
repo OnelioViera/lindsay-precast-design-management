@@ -205,8 +205,15 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // Log full error details for debugging
+    console.error('Full error details:', {
+      message: error.message,
+      name: error.name,
+      stack: error.stack,
+    });
+
     return NextResponse.json(
-      { success: false, message: 'Internal server error' },
+      { success: false, message: error.message || 'Internal server error', details: process.env.NODE_ENV === 'development' ? error.message : undefined },
       { status: 500 }
     );
   }

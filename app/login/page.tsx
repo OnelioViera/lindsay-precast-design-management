@@ -53,10 +53,10 @@ export default function LoginPage() {
     <div className="gradient-bg flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <CardTitle className="text-3xl font-bold text-gray-900">
             📋 Lindsay Precast
           </CardTitle>
-          <CardDescription className="text-base">
+          <CardDescription className="text-base text-gray-700">
             Design Management System
           </CardDescription>
         </CardHeader>
@@ -85,7 +85,7 @@ export default function LoginPage() {
               />
             </div>
             {error && (
-              <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+              <div className="bg-red-100 text-red-800 p-3 text-sm border border-red-400">
                 {error}
               </div>
             )}
@@ -98,9 +98,9 @@ export default function LoginPage() {
               {loading ? 'Logging in...' : 'Login'}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm text-gray-600">
+          <div className="mt-4 text-center text-sm text-gray-700">
             Don&apos;t have an account?{' '}
-            <a href="/register" className="text-indigo-600 hover:underline font-semibold">
+            <a href="/register" className="text-gray-900 hover:underline font-semibold border-b border-gray-900">
               Register here
             </a>
           </div>

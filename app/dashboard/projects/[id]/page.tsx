@@ -414,10 +414,10 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </Button>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">{project.projectNumber}</h1>
-            <p className="text-gray-600 mt-1">{project.customerName}</p>
+            <h1 className="text-3xl font-bold text-gray-900">{project.projectNumber}</h1>
+            <p className="text-gray-700 mt-1">{project.customerName}</p>
             {Object.keys(pendingChanges).length > 0 && (
-              <p className="text-sm text-orange-600 mt-2 font-semibold">⚠️ You have unsaved changes</p>
+              <p className="text-sm text-gray-700 mt-2 font-semibold">⚠️ You have unsaved changes</p>
             )}
           </div>
           <div className="flex items-center gap-2">
@@ -426,7 +426,6 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                 variant="primary"
                 onClick={handleSaveChanges}
                 disabled={isSaving}
-                className="bg-green-600 hover:bg-green-700"
               >
                 <Save className="h-4 w-4 mr-2" />
                 {isSaving ? 'Saving...' : 'Save Changes'}
@@ -439,7 +438,6 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             <Button 
               variant="destructive" 
               onClick={() => setDeleteConfirmId(projectId)}
-              className="bg-red-600 hover:bg-red-700"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Delete
@@ -447,7 +445,6 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             <Button 
               variant="secondary" 
               onClick={handleDownloadPDF}
-              className="bg-blue-600 hover:bg-blue-700"
             >
               <Download className="h-4 w-4 mr-2" />
               Download PDF
@@ -500,7 +497,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                   {project.structures.map((structure, index) => (
                     <div
                       key={index}
-                      className="flex items-start justify-between p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-200"
+                      className="flex items-start justify-between p-3 bg-gray-200 border border-gray-400"
                     >
                       <div>
                         <p className="font-semibold text-gray-800">
@@ -539,10 +536,10 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                   <button
                     key={status}
                     onClick={() => handleStatusChange(status)}
-                    className={`w-full p-3 rounded-lg text-left font-medium transition-all ${
+                    className={`w-full p-3 text-left font-medium transition-all border ${
                       project.status === status
-                        ? 'bg-indigo-500 text-white shadow-lg'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-gray-700 text-white border-gray-900 shadow-lg'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-gray-300'
                     }`}
                   >
                     {status.charAt(0).toUpperCase() + status.slice(1).replace('inprogress', 'In Progress')}
@@ -564,7 +561,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                       type="checkbox"
                       checked={value}
                       onChange={() => handleChecklistToggle(key)}
-                      className="h-5 w-5 accent-indigo-600"
+                      className="h-5 w-5 accent-gray-700"
                     />
                     <span className="text-sm text-gray-700 capitalize">
                       {key.replace(/([A-Z])/g, ' $1').trim()}
@@ -573,12 +570,12 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                 ))}
               </div>
               {project.productionHandoff.sentToProduction && (
-                <div className="mt-4 p-3 bg-green-50 rounded-lg">
-                  <p className="text-sm text-green-800 font-semibold">
+                <div className="mt-4 p-3 bg-gray-300 border border-gray-500">
+                  <p className="text-sm text-gray-900 font-semibold">
                     ✓ Sent to Production
                   </p>
                   {project.productionHandoff.handoffDate && (
-                    <p className="text-xs text-green-600 mt-1">
+                    <p className="text-xs text-gray-700 mt-1">
                       {formatDate(project.productionHandoff.handoffDate)}
                     </p>
                   )}
@@ -621,7 +618,15 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         isOpen={showEditModal}
         project={project}
         onClose={() => setShowEditModal(false)}
-        onSuccess={fetchProject}
+        onSuccess={() => {
+          setShowEditModal(false);
+          fetchProject();
+          addToast({
+            title: 'Project Updated',
+            message: 'Project has been successfully updated',
+            type: 'success',
+          });
+        }}
       />
 
       {/* Delete Confirmation Dialog */}

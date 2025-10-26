@@ -80,12 +80,12 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-2xl max-w-md w-full">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Edit Profile</h2>
+      <div className="bg-white border border-gray-400 shadow-xl max-w-md w-full">
+        <div className="flex items-center justify-between p-6 border-b border-gray-400">
+          <h2 className="text-xl font-bold text-gray-900">Edit Profile</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition"
+            className="text-gray-600 hover:text-gray-800 transition"
           >
             <X className="h-5 w-5" />
           </button>
@@ -93,7 +93,7 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <Label htmlFor="name" className="text-sm font-medium text-gray-700">Full Name</Label>
+            <Label htmlFor="name" className="text-sm font-medium text-gray-900">Full Name</Label>
             <Input
               id="name"
               value={formData.name}
@@ -105,20 +105,20 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
           </div>
 
           <div>
-            <Label htmlFor="email" className="text-sm font-medium text-gray-700">Email</Label>
+            <Label htmlFor="email" className="text-sm font-medium text-gray-900">Email</Label>
             <Input
               id="email"
               type="email"
               value={formData.email}
               placeholder="Enter your email"
               disabled
-              className="mt-1 bg-gray-100 cursor-not-allowed text-gray-600"
+              className="mt-1 bg-gray-200 cursor-not-allowed text-gray-700"
             />
-            <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+            <p className="text-xs text-gray-600 mt-1">Email cannot be changed</p>
           </div>
 
           <div>
-            <Label htmlFor="role" className="text-sm font-medium text-gray-700">Role</Label>
+            <Label htmlFor="role" className="text-sm font-medium text-gray-900">Role</Label>
             <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
               <SelectTrigger className="mt-1">
                 <SelectValue>{formatRole(formData.role)}</SelectValue>
@@ -133,10 +133,10 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
           </div>
 
           {message && (
-            <div className={`p-3 rounded-lg text-sm flex items-center gap-2 ${
+            <div className={`p-3 text-sm flex items-center gap-2 border ${
               message.includes('successfully')
-                ? 'bg-green-50 text-green-700 border border-green-200'
-                : 'bg-red-50 text-red-700 border border-red-200'
+                ? 'bg-gray-100 text-gray-800 border-gray-400'
+                : 'bg-red-100 text-red-800 border-red-400'
             }`}>
               {message.includes('successfully') && <CheckCircle className="h-4 w-4" />}
               {message}
@@ -148,14 +148,14 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               type="button"
               variant="secondary"
               onClick={onClose}
-              className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50"
+              className="flex-1 text-gray-900"
               disabled={loading}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg hover:shadow-purple-500/40 hover:scale-105 transition-all duration-200 font-semibold"
+              className="flex-1 bg-gray-700 text-white hover:bg-gray-800 border-gray-900"
               disabled={loading}
             >
               {loading ? (

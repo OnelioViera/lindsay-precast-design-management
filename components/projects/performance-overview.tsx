@@ -39,46 +39,46 @@ export function PerformanceOverview({ project }: { project: Project }) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-indigo-600" />
+            <TrendingUp className="h-5 w-5 text-gray-700" />
             Project Performance
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {/* Total Duration */}
-            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
-              <p className="text-sm text-gray-600 font-semibold">Total Duration</p>
-              <p className="text-2xl font-bold text-indigo-600 mt-1">{totalDays}</p>
-              <p className="text-xs text-gray-500 mt-1">days</p>
+            <div className="p-4 bg-gray-200 border border-gray-400">
+              <p className="text-sm text-gray-700 font-semibold">Total Duration</p>
+              <p className="text-2xl font-bold text-gray-900 mt-1">{totalDays}</p>
+              <p className="text-xs text-gray-600 mt-1">days</p>
             </div>
 
             {/* Days to Production */}
             {daysToProduction !== null ? (
-              <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200">
-                <p className="text-sm text-gray-600 font-semibold">Time to Production</p>
-                <p className="text-2xl font-bold text-green-600 mt-1">{daysToProduction}</p>
-                <p className="text-xs text-gray-500 mt-1">days</p>
+              <div className="p-4 bg-gray-200 border border-gray-400">
+                <p className="text-sm text-gray-700 font-semibold">Time to Production</p>
+                <p className="text-2xl font-bold text-gray-900 mt-1">{daysToProduction}</p>
+                <p className="text-xs text-gray-600 mt-1">days</p>
               </div>
             ) : (
-              <div className="p-4 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg border border-orange-200">
-                <p className="text-sm text-gray-600 font-semibold">Pending Production</p>
-                <p className="text-2xl font-bold text-orange-600 mt-1">—</p>
-                <p className="text-xs text-gray-500 mt-1">not sent yet</p>
+              <div className="p-4 bg-gray-100 border border-gray-300">
+                <p className="text-sm text-gray-700 font-semibold">Pending Production</p>
+                <p className="text-2xl font-bold text-gray-800 mt-1">—</p>
+                <p className="text-xs text-gray-600 mt-1">not sent yet</p>
               </div>
             )}
 
             {/* Total Hours Logged */}
-            <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg border border-purple-200">
-              <p className="text-sm text-gray-600 font-semibold">Hours Logged</p>
-              <p className="text-2xl font-bold text-purple-600 mt-1">{displayHours}h {displayMinutes}m</p>
-              <p className="text-xs text-gray-500 mt-1">Total time</p>
+            <div className="p-4 bg-gray-200 border border-gray-400">
+              <p className="text-sm text-gray-700 font-semibold">Hours Logged</p>
+              <p className="text-2xl font-bold text-gray-900 mt-1">{displayHours}h {displayMinutes}m</p>
+              <p className="text-xs text-gray-600 mt-1">Total time</p>
             </div>
 
             {/* Revisions Count */}
-            <div className="p-4 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg border border-orange-200">
-              <p className="text-sm text-gray-600 font-semibold">Revisions</p>
-              <p className="text-2xl font-bold text-orange-600 mt-1">{project.revisions?.length || 0}</p>
-              <p className="text-xs text-gray-500 mt-1">iterations</p>
+            <div className="p-4 bg-gray-200 border border-gray-400">
+              <p className="text-sm text-gray-700 font-semibold">Revisions</p>
+              <p className="text-2xl font-bold text-gray-900 mt-1">{project.revisions?.length || 0}</p>
+              <p className="text-xs text-gray-600 mt-1">iterations</p>
             </div>
           </div>
         </CardContent>
@@ -88,7 +88,7 @@ export function PerformanceOverview({ project }: { project: Project }) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Clock className="h-5 w-5 text-indigo-600" />
+            <Clock className="h-5 w-5 text-gray-700" />
             Project Timeline
           </CardTitle>
         </CardHeader>
@@ -103,19 +103,19 @@ export function PerformanceOverview({ project }: { project: Project }) {
                 return (
                   <div key={status} className="flex-1 flex items-center gap-0">
                     {/* Status box */}
-                    <div className={`flex-1 h-full flex flex-col items-center justify-center rounded-lg text-xs font-semibold transition-all relative overflow-hidden ${
+                    <div className={`flex-1 h-full flex flex-col items-center justify-center text-xs font-semibold transition-all relative overflow-hidden border border-gray-500 text-white ${
                       isCurrent
-                        ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg'
+                        ? 'bg-gray-700 shadow-lg'
                         : isCompleted
-                        ? 'bg-indigo-100 text-indigo-700'
-                        : 'bg-gray-100 text-gray-500'
+                        ? 'bg-gray-400'
+                        : 'bg-gray-200'
                     }`}>
                       <span className="capitalize text-center px-2">
                         {status === 'inprogress' ? 'In Prog.' : status.length > 7 ? status.substring(0, 7) + '.' : status}
                       </span>
                       {isCurrent && (
                         <div className="absolute top-1 right-1">
-                          <div className="h-2 w-2 bg-white rounded-full animate-pulse" />
+                          <div className="h-2 w-2 bg-white animate-pulse" />
                         </div>
                       )}
                     </div>
@@ -125,18 +125,18 @@ export function PerformanceOverview({ project }: { project: Project }) {
             </div>
 
             {/* Current Status Info */}
-            <div className="mt-6 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-200">
+            <div className="mt-6 p-4 bg-gray-100 border border-gray-400">
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-indigo-600 mt-0.5 flex-shrink-0" />
+                <CheckCircle2 className="h-5 w-5 text-gray-800 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold text-gray-800 capitalize">
+                  <p className="font-semibold text-gray-900 capitalize">
                     Current Status: {project.status === 'inprogress' ? 'In Progress' : project.status}
                   </p>
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="text-sm text-gray-700 mt-2">
                     <span className="font-medium">Created:</span> {formatDate(project.createdAt!)}
                   </p>
                   {project.completedAt && (
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-gray-700 mt-1">
                       <span className="font-medium">Completed:</span> {formatDate(project.completedAt)}
                     </p>
                   )}
@@ -151,54 +151,54 @@ export function PerformanceOverview({ project }: { project: Project }) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-indigo-600" />
+            <AlertCircle className="h-5 w-5 text-gray-700" />
             Quality & Handoff Metrics
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {/* Revisions */}
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border border-orange-100">
+            <div className="flex items-center justify-between p-3 bg-gray-200 border border-gray-400">
               <div>
-                <span className="text-sm font-semibold text-gray-700">Design Revisions</span>
-                <p className="text-xs text-gray-500 mt-1">Total iterations requested</p>
+                <span className="text-sm font-semibold text-gray-800">Design Revisions</span>
+                <p className="text-xs text-gray-600 mt-1">Total iterations requested</p>
               </div>
-              <span className="text-2xl font-bold text-orange-600">{project.revisions?.length || 0}</span>
+              <span className="text-2xl font-bold text-gray-900">{project.revisions?.length || 0}</span>
             </div>
 
             {/* RFIs */}
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+            <div className="flex items-center justify-between p-3 bg-gray-200 border border-gray-400">
               <div>
-                <span className="text-sm font-semibold text-gray-700">RFIs (Requests for Info)</span>
-                <p className="text-xs text-gray-500 mt-1">Questions requiring clarification</p>
+                <span className="text-sm font-semibold text-gray-800">RFIs (Requests for Info)</span>
+                <p className="text-xs text-gray-600 mt-1">Questions requiring clarification</p>
               </div>
-              <span className="text-2xl font-bold text-indigo-600">{project.productionHandoff.rfis?.length || 0}</span>
+              <span className="text-2xl font-bold text-gray-900">{project.productionHandoff.rfis?.length || 0}</span>
             </div>
 
             {/* Handoff Checklist Progress */}
-            <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="mt-4 pt-4 border-t border-gray-300">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-sm font-semibold text-gray-700">Production Handoff Checklist</p>
-                <span className={`text-sm font-bold px-3 py-1 rounded-full ${
+                <p className="text-sm font-semibold text-gray-800">Production Handoff Checklist</p>
+                <span className={`text-sm font-bold px-3 py-1 border ${
                   checklistPercentage === 100
-                    ? 'bg-green-100 text-green-700'
+                    ? 'bg-gray-500 text-white border-gray-700'
                     : checklistPercentage >= 60
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-orange-100 text-orange-700'
+                    ? 'bg-gray-400 text-white border-gray-600'
+                    : 'bg-gray-300 text-gray-900 border-gray-500'
                 }`}>
                   {checklistPercentage}%
                 </span>
               </div>
 
               {/* Progress Bar */}
-              <div className="w-full bg-gray-200 rounded-full h-2 mb-3 overflow-hidden">
+              <div className="w-full bg-gray-300 h-2 mb-3 overflow-hidden border border-gray-400">
                 <div
-                  className={`h-full rounded-full transition-all duration-300 ${
+                  className={`h-full transition-all duration-300 ${
                     checklistPercentage === 100
-                      ? 'bg-green-500'
+                      ? 'bg-gray-700'
                       : checklistPercentage >= 60
-                      ? 'bg-indigo-500'
-                      : 'bg-orange-500'
+                      ? 'bg-gray-600'
+                      : 'bg-gray-500'
                   }`}
                   style={{ width: `${checklistPercentage}%` }}
                 />
@@ -207,11 +207,11 @@ export function PerformanceOverview({ project }: { project: Project }) {
               {/* Checklist Items */}
               <div className="space-y-2">
                 {Object.entries(project.productionHandoff.checklist).map(([key, completed]) => (
-                  <div key={key} className="flex items-center justify-between text-sm p-2 rounded hover:bg-gray-50">
-                    <span className="text-gray-600 capitalize">
+                  <div key={key} className="flex items-center justify-between text-sm p-2 hover:bg-gray-200 border border-gray-300">
+                    <span className="text-gray-700 capitalize">
                       {key.replace(/([A-Z])/g, ' $1').trim()}
                     </span>
-                    <span className={`font-semibold flex items-center gap-1 ${completed ? 'text-green-600' : 'text-gray-400'}`}>
+                    <span className={`font-semibold flex items-center gap-1 ${completed ? 'text-gray-900' : 'text-gray-500'}`}>
                       {completed ? (
                         <>
                           <span>✓</span>
@@ -231,12 +231,12 @@ export function PerformanceOverview({ project }: { project: Project }) {
 
             {/* Handoff Status */}
             {project.productionHandoff.sentToProduction && (
-              <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200 flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+              <div className="mt-4 p-3 bg-gray-300 border border-gray-500 flex items-start gap-2">
+                <CheckCircle2 className="h-5 w-5 text-gray-800 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold text-green-900">Sent to Production</p>
+                  <p className="font-semibold text-gray-900">Sent to Production</p>
                   {project.productionHandoff.handoffDate && (
-                    <p className="text-sm text-green-700 mt-1">
+                    <p className="text-sm text-gray-700 mt-1">
                       {formatDate(project.productionHandoff.handoffDate)}
                     </p>
                   )}
