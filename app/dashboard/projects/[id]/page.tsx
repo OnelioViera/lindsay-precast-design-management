@@ -5,11 +5,13 @@ import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { EditProjectModal } from '@/components/projects/edit-project-modal';
+import { PerformanceOverview } from '@/components/projects/performance-overview';
 import { Project } from '@/types';
-import { ArrowLeft, Edit, Save, Trash2 } from 'lucide-react';
+import { ArrowLeft, Edit, Save, Trash2, Download } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import { useToast } from '@/lib/toast-context';
 import { ConfirmationDialog } from '@/components/ui/confirmation-dialog';
+import jsPDF from 'jspdf';
 
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -219,6 +221,165 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
   const isChecklistComplete = project ? Object.values(project.productionHandoff.checklist).every(v => v) : false;
 
+  const handleDownloadPDF = () => {
+    if (!project) return;
+    
+    try {
+      const doc = new jsPDF();
+      let yPosition = 20;
+
+      // Title
+      doc.setFontSize(20);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Project Overview & Performance Report', 20, yPosition);
+      yPosition += 15;
+
+      // Project Header
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Project Information', 20, yPosition);
+      yPosition += 8;
+
+      // Project details
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.text(`Project Number: ${project.projectNumber}`, 20, yPosition);
+      yPosition += 5;
+      if (project.projectName) {
+        doc.text(`Project Name: ${project.projectName}`, 20, yPosition);
+        yPosition += 5;
+      }
+      doc.text(`Customer: ${project.customerName}`, 20, yPosition);
+      yPosition += 5;
+      doc.text(`Product Type: ${project.productType}`, 20, yPosition);
+      yPosition += 5;
+      doc.text(`Status: ${project.status}`, 20, yPosition);
+      yPosition += 5;
+      doc.text(`Created: ${new Date(project.createdAt!).toLocaleDateString()}`, 20, yPosition);
+      yPosition += 8;
+
+      // Structures Section
+      if (project.structures && project.structures.length > 0) {
+        doc.setFont('helvetica', 'bold');
+        doc.text('Structures:', 20, yPosition);
+        yPosition += 5;
+        doc.setFont('helvetica', 'normal');
+        project.structures.forEach((structure) => {
+          doc.text(`• ${structure.customName || structure.type}`, 25, yPosition);
+          yPosition += 4;
+        });
+        yPosition += 3;
+      }
+
+      // Custom Notes
+      if (project.specifications.customNotes) {
+        doc.setFont('helvetica', 'bold');
+        doc.text('Notes:', 20, yPosition);
+        yPosition += 4;
+        doc.setFont('helvetica', 'normal');
+        const noteLines = doc.splitTextToSize(project.specifications.customNotes, 170);
+        doc.text(noteLines, 25, yPosition);
+        yPosition += noteLines.length * 4 + 3;
+      }
+
+      // Performance Section Header
+      yPosition += 3;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12);
+      doc.text('Job Performance & Tracking', 20, yPosition);
+      yPosition += 8;
+
+      // Time Tracking
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.text('Time Tracking:', 20, yPosition);
+      yPosition += 4;
+      doc.setFont('helvetica', 'normal');
+      const totalHours = project.timeTracking.totalHours || 0;
+      const displayHours = Math.floor(totalHours);
+      const displayMinutes = Math.round((totalHours - displayHours) * 60);
+      doc.text(`Total Hours: ${displayHours}h ${displayMinutes}m (${totalHours.toFixed(2)} hrs)`, 25, yPosition);
+      yPosition += 5;
+      doc.text(`Time Entries: ${project.timeTracking.entries?.length || 0}`, 25, yPosition);
+      yPosition += 8;
+
+      // Project Duration
+      doc.setFont('helvetica', 'bold');
+      doc.text('Project Duration:', 20, yPosition);
+      yPosition += 4;
+      doc.setFont('helvetica', 'normal');
+      const startDate = new Date(project.createdAt!);
+      const endDate = project.completedAt ? new Date(project.completedAt) : new Date();
+      const totalDays = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+      doc.text(`Total Days: ${totalDays} days`, 25, yPosition);
+      yPosition += 5;
+      if (project.productionHandoff.handoffDate) {
+        const handoffDate = new Date(project.productionHandoff.handoffDate);
+        const daysToProduction = Math.floor((handoffDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+        doc.text(`Days to Production: ${daysToProduction} days`, 25, yPosition);
+        yPosition += 5;
+        doc.text(`Production Sent: ${handoffDate.toLocaleDateString()}`, 25, yPosition);
+        yPosition += 5;
+      }
+      yPosition += 3;
+
+      // Design Changes & Quality Metrics
+      doc.setFont('helvetica', 'bold');
+      doc.text('Design & Quality Metrics:', 20, yPosition);
+      yPosition += 4;
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Design Revisions: ${project.revisions?.length || 0}`, 25, yPosition);
+      yPosition += 5;
+      doc.text(`RFI Requests: ${project.productionHandoff.rfis?.length || 0}`, 25, yPosition);
+      yPosition += 8;
+
+      // Production Handoff Checklist
+      doc.setFont('helvetica', 'bold');
+      doc.text('Production Handoff Checklist:', 20, yPosition);
+      yPosition += 5;
+      doc.setFont('helvetica', 'normal');
+      
+      const checklistItems = [
+        { key: 'drawingsFinalized', label: 'Drawings Finalized' },
+        { key: 'specificationsVerified', label: 'Specifications Verified' },
+        { key: 'customerApprovalReceived', label: 'Customer Approval Received' },
+        { key: 'materialListConfirmed', label: 'Material List Confirmed' },
+        { key: 'productionNotesAdded', label: 'Production Notes Added' },
+      ];
+
+      checklistItems.forEach((item) => {
+        const checked = (project.productionHandoff.checklist as any)[item.key] ? '✓' : '✗';
+        doc.text(`${checked} ${item.label}`, 25, yPosition);
+        yPosition += 4;
+      });
+
+      // Calculate checklist completion
+      const checklistValues = Object.values(project.productionHandoff.checklist);
+      const completedItems = checklistValues.filter(item => item).length;
+      const checklistPercentage = Math.round((completedItems / checklistValues.length) * 100);
+      
+      yPosition += 3;
+      doc.setFont('helvetica', 'bold');
+      doc.text(`Checklist Completion: ${checklistPercentage}%`, 20, yPosition);
+      yPosition += 5;
+
+      // Save
+      doc.save(`Project_${project.projectNumber}.pdf`);
+      addToast({
+        title: 'Success',
+        message: `PDF downloaded: Project_${project.projectNumber}.pdf`,
+        type: 'success',
+      });
+    } catch (error) {
+      console.error('Failed to download PDF:', error);
+      addToast({
+        title: 'Error',
+        message: 'Failed to download PDF',
+        type: 'error',
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -282,6 +443,14 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Delete
+            </Button>
+            <Button 
+              variant="secondary" 
+              onClick={handleDownloadPDF}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Download PDF
             </Button>
           </div>
         </div>
@@ -444,6 +613,9 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
           </Card>
         </div>
       </div>
+
+      {/* Performance Section */}
+      {project && <PerformanceOverview project={project} />}
 
       <EditProjectModal
         isOpen={showEditModal}
